@@ -53,17 +53,25 @@ public class BinDecConverter extends Application {
                     case 0:
                         title.setText("Decimal to Binary");
                         grid.getChildren().remove(1, 6);
-                        addBinary(grid, 2);
+                        
+                        //order is important
                         addDecimal(grid, 1);
+                        addBinary(grid, 2);
                         addButton(grid);
+                        
+                        grid.getChildren().get(2).requestFocus(); //focus upper textfield
                         mode = 1;
                         break;
                     case 1:
                         title.setText("Binary to Decimal");
                         grid.getChildren().remove(1, 6);
+                        
+                        //order is important
                         addBinary(grid, 1);
                         addDecimal(grid, 2);
                         addButton(grid);
+                        
+                        grid.getChildren().get(2).requestFocus(); //focus upper textfield
                         mode = 0;
                         break;
                     default:
