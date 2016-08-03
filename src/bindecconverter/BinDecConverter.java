@@ -5,18 +5,10 @@
  */
 package bindecconverter;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,7 +41,7 @@ public class BinDecConverter extends Application {
         title.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                switch (mode) {
+                switch(mode) {
                     case 0:
                         title.setText("Decimal to Binary");
                         grid.getChildren().remove(1, 6);
@@ -114,10 +106,49 @@ public class BinDecConverter extends Application {
     
     public void addButton(GridPane grid) {
         Button button = new Button("Convert");
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                TextField node = new TextField();
+                node = (TextField) grid.getChildren().get(2);
+                String input = node.getText();
+                node = (TextField) grid.getChildren().get(4);
+                node.setText(convert(input));
+            }
+            
+        });
         
         HBox hbBtn = new HBox();
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(button);
         grid.add(hbBtn, 1, 3);
+    }
+    
+    public String convert(String input) {
+        String out = "";
+        switch(mode) {
+            case 0:
+                String bin = input;
+                int o = 0;
+                for(int i = bin.length(); i > 0; i--) {
+                    if(bin.charAt(i - 1) == '1') {
+                        o += Math.pow(2, bin.length() - i);
+                    }
+                }
+                out += o;
+                break;
+            case 1:
+                int dec = Integer.parseInt(input);
+                while(dec > 0) {
+                  out += dec % 2;
+                  dec = dec / 2;
+                }
+                out = new StringBuffer(out).reverse().toString();
+                break;
+            default:
+                System.err.println("unknown mode: " + mode);
+                System.exit(0);    
+        }
+        return out;
     }
 }
