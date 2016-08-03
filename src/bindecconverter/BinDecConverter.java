@@ -52,16 +52,18 @@ public class BinDecConverter extends Application {
                 switch (mode) {
                     case 0:
                         title.setText("Decimal to Binary");
-                        grid.getChildren().remove(1, 5);
+                        grid.getChildren().remove(1, 6);
                         addBinary(grid, 2);
                         addDecimal(grid, 1);
+                        addButton(grid);
                         mode = 1;
                         break;
                     case 1:
                         title.setText("Binary to Decimal");
-                        grid.getChildren().remove(1, 5);
+                        grid.getChildren().remove(1, 6);
                         addBinary(grid, 1);
                         addDecimal(grid, 2);
+                        addButton(grid);
                         mode = 0;
                         break;
                     default:
@@ -77,12 +79,7 @@ public class BinDecConverter extends Application {
         
         addDecimal(grid, 2);
         
-        Button button = new Button("Convert");
-        
-        HBox hbBtn = new HBox();
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(button);
-        grid.add(hbBtn, 1, 3);
+        addButton(grid);
         
         Scene scene = new Scene(grid, 250, 250);
         
@@ -105,5 +102,14 @@ public class BinDecConverter extends Application {
         
         TextField decimalTF = new TextField();
         grid.add(decimalTF, 1, row);
+    }
+    
+    public void addButton(GridPane grid) {
+        Button button = new Button("Convert");
+        
+        HBox hbBtn = new HBox();
+        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.getChildren().add(button);
+        grid.add(hbBtn, 1, 3);
     }
 }
